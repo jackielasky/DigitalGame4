@@ -97,12 +97,14 @@ window.onload = function() {
         enemies.setYSpeed(-300,-5000);
         enemies.makeParticles(['spider']);
         enemies.start(false, 14000, 40);
+    
                
         //falling lid to catch
         lids = game.add.emitter(game.world.centerX,-200,200);
         lids.setYSpeed(10,-5000);
-        lids.makeParticles(['lid']);
-        lids.start(false, 14000, 40);
+        
+      
+        
     }
     
     function update() {
@@ -143,6 +145,10 @@ window.onload = function() {
 //    music = game.add.audio('song2');
 //    music.play();    
     game.add.sprite('firefly');    
+        if(score>90){
+            lids.makeParticles(['lid']);
+            lids.start(false, 14000, 40);
+        }
     }
     
     function checkLid(player,lid){
@@ -193,9 +199,9 @@ window.onload = function() {
       heart.revive();
       heart1.revive();
       heart2.revive();
+      lids.stop();
   }
      function render(){
-        
          game.debug.soundInfo(music,20,32);
     }
     
