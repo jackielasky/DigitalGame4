@@ -1,16 +1,4 @@
-window.onload = function() {
-    // You might want to start with a template that uses GameStates:
-    //     https://github.com/photonstorm/phaser/tree/master/resources/Project%20Templates/Basic
-    
-    // You can copy-and-paste the code from any of the examples at http://examples.phaser.io here.
-    // You will need to change the fourth parameter to "new Phaser.Game()" from
-    // 'phaser-example' to 'game', which is the id of the HTML element where we
-    // want the game to go.
-    // The assets (and code) can be found at: https://github.com/photonstorm/phaser/tree/master/examples/assets
-    // You will need to change the paths you pass to "game.load.image()" or any other
-    // loading functions to reflect where you are putting the assets.
-    // All loading functions will typically all be found inside "preload()".
-    
+window.onload = function() {    
     "use strict";
     
     var game = new Phaser.Game( 800, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update } );
@@ -24,10 +12,9 @@ window.onload = function() {
         game.load.image('spider','assets/spider2.png');
         game.load.image('lid','assets/lid2.png');
         game.load.image('heart','assets/heart1.png');
-       // game.load.image('jar1','assets/jars/one.png');
         game.load.audio('background','assets/audio/forest.mp3');
         game.load.audio('song1','assets/audio/explosion.mp3');
-        game.load.audio('song2','assets/audio/star.mp3');        game.load.audio('song3','assets/audio/sunny.mp3');
+        game.load.audio('song2','assets/audio/star.mp3');
         game.load.image('night2','assets/night2.png');
     }
     
@@ -35,7 +22,7 @@ window.onload = function() {
     var player, firefly;
     var music;
     var music2;
-    var music3;    
+    var music4;    
     var flies, enemies, cursors, lids;
     var spider;
     var lid;
@@ -47,15 +34,10 @@ window.onload = function() {
     var afterPic;
     
     function create() {
-        //songs:
-        music = game.add.audio('background');
-        music.play();         
-        
+      
         //background
         game.add.sprite(0, 0, 'night');
         game.physics.startSystem(Phaser.Physics.ARCADE);      
-        
-        
         
         //the jar aka the player of the game
         player = game.add.sprite(200,600,'player');       
@@ -104,6 +86,12 @@ window.onload = function() {
         //falling lid to catch
         lids = game.add.emitter(game.world.centerX,-200,200);
         lids.setYSpeed(10,-5000);
+        
+        //songs:
+        music = game.add.audio('background');
+        music.play();
+        
+        
     }
     
     function update() {
@@ -170,8 +158,8 @@ window.onload = function() {
     }
     
     function enemyHitsPlayer (player,spider) {
-       // music2 = game.add.audio('song1');
-        //music2.play();
+        music4 = game.add.audio('song1');
+        music4.play();
         strikes +=1;
         spider.kill();
        
