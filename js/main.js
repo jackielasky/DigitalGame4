@@ -18,22 +18,24 @@ window.onload = function() {
     //the garden can lighten up with each new firefly that is caught
     
     function preload() {
-        game.load.audio('song1','assets/explosion.mp3');
-        game.load.audio('song2','assets/star.mp3');
-        game.load.audio('song3','assets/sunny.mp3');
         game.load.image('night','assets/night1.png');
         game.load.image('player','assets/jar5.png',43,83,1);
         game.load.image('firefly','assets/firefly3.png');
         game.load.image('spider','assets/spider2.png');
         game.load.image('lid','assets/lid2.png');
         game.load.image('heart','assets/heart1.png');
-        game.load.image('jar1','assets/jars/one.png');
-     
-        
+       // game.load.image('jar1','assets/jars/one.png');
+        game.load.audio('background','assets/audio/forest.mp3');
+        game.load.audio('song1','assets/audio/explosion.mp3');
+        game.load.audio('song2','assets/audio/star.mp3');
+        game.load.audio('song3','assets/audio/sunny.mp3');       
     }
     
     //enemies
     var player, firefly;
+    var music;
+    var music2;
+    var music3;    
     var flies, enemies, cursors, lids;
     var spider;
     var lid;
@@ -41,13 +43,12 @@ window.onload = function() {
     var scoreText, stateText, stateText2;
     var emitter;    
     var strikes = 0;
-    var music, music2, music3;    
     var heart, heart1,heart2;
     
     function create() {
         //songs:
-        music3 = game.add.audio('song3');
-        music3.play();        
+        music = game.add.audio('background');
+        music.play();         
         
         //background
         game.add.sprite(0, 0, 'night');
@@ -58,10 +59,7 @@ window.onload = function() {
         game.physics.arcade.enable(player);    
         
         player.body.collideWorldBounds = true;
-        
-       // one = game.add.image(300,100,'jar1');
-       // player.filters=[one];
-        
+            
            //  Our controls.
         cursors = game.input.keyboard.createCursorKeys();        
         
@@ -142,15 +140,9 @@ window.onload = function() {
     
         // Removes the star from the screen
     firefly.kill();
-    music = game.add.audio('song2');
-    music.play();
-    //player = one; 
-    //var one = game.add.sprite(300,100,'jar1');
-    
-    game.add.sprite('firefly');
-    
-    //  Add and update the score
-    
+//    music = game.add.audio('song2');
+//    music.play();    
+    game.add.sprite('firefly');    
     }
     
     function checkLid(player,lid){
@@ -166,8 +158,8 @@ window.onload = function() {
     }
     
     function enemyHitsPlayer (player,spider) {
-        music2 = game.add.audio('song1');
-        music2.play();
+       // music2 = game.add.audio('song1');
+        //music2.play();
         strikes +=1;
         spider.kill();
        
@@ -202,6 +194,9 @@ window.onload = function() {
       heart1.revive();
       heart2.revive();
   }
-    
+     function render(){
+        
+         game.debug.soundInfo(music,20,32);
+    }
     
 };
