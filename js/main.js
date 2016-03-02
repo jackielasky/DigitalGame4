@@ -27,8 +27,8 @@ window.onload = function() {
        // game.load.image('jar1','assets/jars/one.png');
         game.load.audio('background','assets/audio/forest.mp3');
         game.load.audio('song1','assets/audio/explosion.mp3');
-        game.load.audio('song2','assets/audio/star.mp3');
-        game.load.audio('song3','assets/audio/sunny.mp3');       
+        game.load.audio('song2','assets/audio/star.mp3');        game.load.audio('song3','assets/audio/sunny.mp3');
+        game.load.image('night2','assets/night2.png');
     }
     
     //enemies
@@ -44,6 +44,7 @@ window.onload = function() {
     var emitter;    
     var strikes = 0;
     var heart, heart1,heart2;
+    var afterPic;
     
     function create() {
         //songs:
@@ -53,6 +54,8 @@ window.onload = function() {
         //background
         game.add.sprite(0, 0, 'night');
         game.physics.startSystem(Phaser.Physics.ARCADE);      
+        
+        
         
         //the jar aka the player of the game
         player = game.add.sprite(200,600,'player');       
@@ -78,11 +81,11 @@ window.onload = function() {
         heart2 = game.add.sprite(95,50,'heart');
         
         
-       stateText = game.add.text(game.world.centerX,game.world.centerY,' ',     { font: '50px Arial', fill: '#950' });
+       stateText = game.add.text(game.world.centerX,game.world.centerY,' ',     { font: '50px Arial', fill: '#fff' });
         stateText.anchor.setTo(0.5, 0.5);
         stateText.visible = false;
         
-        stateText2 = game.add.text(game.world.centerX,game.world.centerY,' ',    { font: '50px Arial', fill: '#950' });
+        stateText2 = game.add.text(game.world.centerX,game.world.centerY,' ',    { font: '50px Arial', fill: '#fff' });
         stateText2.anchor.setTo(0.5, 0.5);
         stateText2.visible = false;
         
@@ -97,14 +100,10 @@ window.onload = function() {
         enemies.setYSpeed(-300,-5000);
         enemies.makeParticles(['spider']);
         enemies.start(false, 14000, 40);
-    
                
         //falling lid to catch
         lids = game.add.emitter(game.world.centerX,-200,200);
         lids.setYSpeed(10,-5000);
-        
-      
-        
     }
     
     function update() {
@@ -137,18 +136,25 @@ window.onload = function() {
     }
      
     function collectFirefly (player, firefly) {
-    score += 1; //increase score of firefly 
+    if(score==100){
+        score = score;
+    }
+    else{
+         score += 1; //increase score of firefly 
+    }
+       
     scoreText.text = score + '/100 fireflies';
     
         // Removes the star from the screen
     firefly.kill();
-//    music = game.add.audio('song2');
-//    music.play();    
+    music2 = game.add.audio('song2');
+    music2.play();    
     game.add.sprite('firefly');    
-        if(score>90){
-            lids.makeParticles(['lid']);
-            lids.start(false, 14000, 40);
-        }
+    if(score>90){
+          lids.makeParticles(['lid']);
+          lids.start(false, 14000, 40);
+    }
+       
     }
     
     function checkLid(player,lid){
@@ -200,6 +206,8 @@ window.onload = function() {
       heart1.revive();
       heart2.revive();
       lids.stop();
+   //     game.add.sprite(0, 0, 'night');
+      
   }
      function render(){
          game.debug.soundInfo(music,20,32);
