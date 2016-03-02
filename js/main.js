@@ -18,6 +18,9 @@ window.onload = function() {
     //the garden can lighten up with each new firefly that is caught
     
     function preload() {
+        game.load.audio('song1','assets/explosion.mp3');
+        game.load.audio('song2','assets/star.mp3');
+        game.load.audio('song3','assets/sunny.mp3');
         game.load.image('night','assets/night1.png');
         game.load.image('player','assets/jar5.png',43,83,1);
         game.load.image('firefly','assets/firefly3.png');
@@ -25,32 +28,39 @@ window.onload = function() {
         game.load.image('lid','assets/lid2.png');
         game.load.image('heart','assets/heart1.png');
         game.load.image('jar1','assets/jars/one.png');
-      //  game.load.audio();
+     
         
     }
     
     //enemies
     var player, firefly;
     var flies, enemies, cursors, lids;
-    var frog, toad, spider;
-    var bat, rat, bird;
+    var spider;
     var lid;
     var score =0;
     var scoreText, stateText, stateText2;
     var emitter;    
     var strikes = 0;
+    var music, music2, music3;    
     var heart, heart1,heart2;
     
     function create() {
+        //songs:
+        music3 = game.add.audio('song3');
+        music3.play();        
+        
         //background
         game.add.sprite(0, 0, 'night');
-        game.physics.startSystem(Phaser.Physics.ARCADE);
+        game.physics.startSystem(Phaser.Physics.ARCADE);      
         
         //the jar aka the player of the game
         player = game.add.sprite(200,600,'player');       
         game.physics.arcade.enable(player);    
         
         player.body.collideWorldBounds = true;
+        
+       // one = game.add.image(300,100,'jar1');
+       // player.filters=[one];
         
            //  Our controls.
         cursors = game.input.keyboard.createCursorKeys();        
@@ -105,7 +115,7 @@ window.onload = function() {
         game.physics.arcade.overlap(player, flies, collectFirefly, null, this);
         game.physics.arcade.overlap(player, lids,checkLid, null, this);
         game.physics.arcade.overlap(player, enemies, enemyHitsPlayer, null, this);
-        
+    
         if (cursors.left.isDown)
         {
             //  Move to the left
@@ -129,12 +139,14 @@ window.onload = function() {
     function collectFirefly (player, firefly) {
     score += 1; //increase score of firefly 
     scoreText.text = score + '/100 fireflies';
-   
+    
         // Removes the star from the screen
     firefly.kill();
-   // player = game.add.sprite(200,600,'jar1');
-   //     game.add.sprite(200,600,'jar1');
-  //  game.add.image('firefly');  
+    music = game.add.audio('song2');
+    music.play();
+    //player = one; 
+    //var one = game.add.sprite(300,100,'jar1');
+    
     game.add.sprite('firefly');
     
     //  Add and update the score
@@ -154,8 +166,11 @@ window.onload = function() {
     }
     
     function enemyHitsPlayer (player,spider) {
+        music2 = game.add.audio('song1');
+        music2.play();
         strikes +=1;
         spider.kill();
+       
         if (strikes==1){
             heart.kill();            
         }
