@@ -23,7 +23,7 @@ window.onload = function() {
     var music;
     var music2;
     var music4;    
-    var flies, enemies, cursors, lids;
+    var flies, enemies, cursors, lids; //groups
     var spider;
     var lid;
     var score =0;
